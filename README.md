@@ -1,3 +1,47 @@
+## model conversion from .pb to tensorflowjs readable format
+### install tensorflowjs
+```bash
+pip install tensorflowjs
+```
+### covert
+```bash
+tensorflowjs_converter \
+    --input_format=tf_frozen_model \
+    --output_json=true \
+    --output_node_names='{node name}' \
+    --saved_model_tags=serve \
+    --skip_op_check=SKIP_OP_CHECK \
+    {source model (.pb)} \
+    {result output dir}
+```
+### How to check --output_node_names from .pb
+```bash
+git clone https://github.com/tensorflow/tensorflow.git
+```
+```bash
+cd tensorflow
+```
+(on macOS)
+```bash
+brew install bazel
+```
+```bash
+bazel build tensorflow/python/tools:freeze_graph
+```
+```bash
+bazel-bin/tensorflow/tools/graph_transforms/summarize_graph --in_graph={source model (.pb)}
+```
+↑ outputs ↓
+```bash
+~
+Found 1 possible outputs: (name=******, op=******) ===
+~
+```
+name=****** is the name of `--output_node_names`
+
+
+# Auto generated docs with create-react-app
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
